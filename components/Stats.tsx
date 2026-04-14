@@ -121,7 +121,7 @@ function FeatureCard({
             className="absolute inset-0 h-full w-full object-cover object-center lg:object-right"
           />
         </AnimatePresence>
-        {/* <div className="absolute inset-0 bg-linear-to-r from-[#929294] via-[#FAFAFC]/80 to-transparent lg:via-[#FAFAFC]/30" /> */}
+        <div className="absolute inset-0 bg-slate-900/40" />
       </div>
       <div
         className={`absolute -inset-24 z-0 opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none bg-radial-to-br ${feature.color} to-transparent blur-3xl`}
@@ -154,13 +154,13 @@ function FeatureCard({
             <span className={feature.textColor}>{feature.icon}</span>
           </div>
 
-          <p className="mb-3 text-[10px] font-black tracking-[0.5em] text-slate-400  group-hover:text-white uppercase">
+          <p className="mb-3 text-[10px] font-black tracking-[0.5em] text-slate-100  group-hover:text-white uppercase">
             {feature.subtitle}
           </p>
 
           <h3 className="mb-4 font-jakarta text-4xl font-black tracking-tighter text-slate-900 sm:text-5xl leading-[0.9]">
             {feature.title} <br />
-            <span className="italic group-hover:text-slate-200 text-slate-600 transition-colors">
+            <span className="italic group-hover:text-slate-200 text-slate-100 transition-colors">
               {feature.titleSuffix}
             </span>
           </h3>

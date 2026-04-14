@@ -78,20 +78,21 @@ export default function SecuritySpecs() {
             >
               <div className="h-px w-12 bg-slate-900" />
               <span className="text-[10px] font-black tracking-[0.5em] text-slate-400 uppercase">
-                Privacy Assurance
+                Data Sovereignty
               </span>
             </motion.div>
 
             <h2 className="font-jakarta text-slate-900 text-5xl font-black tracking-tighter sm:text-7xl uppercase leading-[0.85]">
-              Benteng <br />
+              Infrastruktur <br />
               <span className="bg-linear-to-r from-slate-900 via-slate-500 to-slate-300 bg-clip-text text-transparent italic">
-                Keamanan.
+                Privasi.
               </span>
             </h2>
           </div>
           <p className="max-w-xs text-sm font-medium leading-relaxed text-slate-500 border-l-2 border-slate-200 pl-6">
-            Standar enkripsi tingkat militer yang memastikan setiap kata tetap
-            menjadi rahasia pribadi Anda.
+            Implementasi enkripsi end-to-end asimetris yang menjamin
+            eksklusivitas data. Informasi adalah aset pribadi yang tidak dapat
+            diintervensi oleh pihak manapun.
           </p>
         </div>
 

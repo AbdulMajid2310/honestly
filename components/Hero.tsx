@@ -1,10 +1,11 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { FaArrowRight, FaShieldAlt, FaWhatsapp } from "react-icons/fa";
-import { HiOutlineSparkles } from "react-icons/hi";
+import { HiOutlineSparkles } from "react-icons/hi2";
 import HeroAnimations from "./HeroAnimations";
 
-// Slide Data tetap sama
 const slideData = [
   {
     id: 1,
@@ -47,60 +48,36 @@ const slideData = [
 const containerVariants: Variants = {
   initial: {},
   animate: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
   },
   exit: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
   },
 };
 
-// Varian Spesifik untuk tiap elemen
 const badgeVariants: Variants = {
-  initial: { opacity: 0, scale: 0.8, filter: "blur(10px)" },
+  initial: { opacity: 0, y: -10, filter: "blur(8px)" },
   animate: {
     opacity: 1,
-    scale: 1,
+    y: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.9,
-    filter: "blur(10px)",
-    transition: { duration: 0.3 },
+    transition: { duration: 0.5 },
   },
 };
 
 const titleVariants: Variants = {
-  initial: { opacity: 0, x: -30, filter: "blur(5px)" },
+  initial: { opacity: 0, x: -20, filter: "blur(12px)" },
   animate: {
     opacity: 1,
     x: 0,
     filter: "blur(0px)",
     transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
-  exit: {
-    opacity: 0,
-    x: 20,
-    filter: "blur(5px)",
-    transition: { duration: 0.3 },
-  },
 };
 
 const descVariants: Variants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  exit: { opacity: 0, y: 10, transition: { duration: 0.3 } },
-};
-
-const ctaVariants: Variants = {
-  initial: { opacity: 0, scale: 0.9 },
-  animate: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: "backOut" },
-  },
-  exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
+  initial: { opacity: 0, y: 15 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function Hero() {
@@ -114,53 +91,54 @@ export default function Hero() {
   }, []);
 
   const current = slideData[index];
-  if (!current) return null;
 
   return (
-    <section className="relative flex lg:min-h-screen items-center overflow-hidden bg-[#FAFAFC] text-[#05050A]">
-      {/* 1. DYNAMIC VIDEO BACKGROUND LAYER */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+    <section className="relative flex min-h-[90vh] lg:min-h-screen items-center overflow-hidden bg-[#FAFAFC] text-slate-900">
+      {/* 1. DYNAMIC VIDEO BACKGROUND */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <AnimatePresence mode="popLayout">
           <motion.div
-            key={`video-${index}`}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            key={`bg-${index}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.6 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2 }}
             className="absolute inset-0 h-full w-full"
           >
-            {/* Video sebagai background penuh */}
             <video
               autoPlay
               muted
               loop
               playsInline
-              className="h-full w-full object-cover object-top-10"
+              className="h-full w-full object-cover grayscale-20"
             >
               <source src={current.videoSrc} type="video/mp4" />
             </video>
 
-            <div className="absolute inset-0 bg-linear-to-t from-[#FAFAFC] via-transparent to-transparent lg:hidden" />
-            <div className="absolute inset-x-0 bottom-0 h-10 bg-linear-to-t from-slate-200 to-transparent backdrop-blur-sm" />
+            {/* Gradasi yang lebih halus untuk menyatukan video dengan konten */}
+            <div className="absolute inset-0 bg-linear-to-b from-[#FAFAFC]/10 via-[#FAFAFC]/60 to-[#FAFAFC]" />
+            <div className="absolute inset-0 bg-linear-to-r from-[#FAFAFC] via-[#FAFAFC]/40 to-transparent hidden lg:block" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <AnimatePresence>
+      {/* Glow Effect */}
+      <AnimatePresence mode="wait">
         <motion.div
           key={`glow-${index}`}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.4, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.2 }}
-          transition={{ duration: 1.5 }}
-          className={`absolute -top-20 -left-20 z-0 h-150 w-150 rounded-full blur-[120px] bg-linear-to-br ${current.color} to-transparent opacity-20`}
+          animate={{ opacity: 0.3, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.1 }}
+          transition={{ duration: 2 }}
+          className={`absolute -top-20 -left-20 z-0 h-125 w-125 rounded-full blur-[100px] bg-linear-to-br ${current.color} to-transparent`}
         />
       </AnimatePresence>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20">
-        <div className="grid items-center gap-16 lg:grid-cols-12">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20 lg:py-0">
+        <div className="grid items-center gap-12 lg:grid-cols-12">
+          {/* Content Section */}
           <div className="lg:col-span-7">
-            <div className="relative min-h-112.5 flex flex-col justify-center">
+            <div className="relative flex flex-col justify-center min-h-100">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={index}
@@ -170,70 +148,69 @@ export default function Hero() {
                   exit="exit"
                   className="flex flex-col"
                 >
-                  {/* Badge: Zoom-in Effect */}
                   <motion.div
                     variants={badgeVariants}
-                    className="mb-6 flex items-center gap-3"
+                    className="mb-8 flex items-center gap-4"
                   >
-                    <span
-                      className={`flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br ${current.color} to-black/20 text-white shadow-lg`}
+                    <div
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br ${current.color} to-black/20 text-white shadow-lg backdrop-blur-sm`}
                     >
                       {current.icon}
-                    </span>
-                    <span className="text-sm font-bold tracking-[0.3em] text-gray-400 uppercase">
+                    </div>
+                    <span className="text-xs font-black tracking-[0.4em] text-slate-400 uppercase">
                       {current.subtitle}
                     </span>
                   </motion.div>
 
-                  {/* Title: Slide from Left */}
                   <motion.h1
                     variants={titleVariants}
-                    className="mb-6 text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-7xl "
+                    className="mb-6 text-5xl font-black leading-[0.95] tracking-tighter sm:text-8xl uppercase italic"
                   >
                     {current.title.split(" ")[0]} <br />
                     <span
-                      className={`text-transparent bg-clip-text bg-linear-to-r ${current.color} to-gray-400`}
+                      className={`text-transparent bg-clip-text bg-linear-to-r ${current.color} to-slate-400`}
                     >
                       {current.title.split(" ").slice(1).join(" ")}
                     </span>
                   </motion.h1>
 
-                  {/* Description: Fade-up */}
                   <motion.p
                     variants={descVariants}
-                    className="mb-10 max-w-lg text-lg text-gray-600 leading-relaxed"
+                    className="mb-10 max-w-lg text-lg text-slate-500 font-medium leading-relaxed"
                   >
                     {current.desc}
                   </motion.p>
 
-                  {/* CTA: Pop Effect */}
                   <motion.div
-                    variants={ctaVariants}
-                    className="flex flex-wrap items-center gap-8"
+                    variants={descVariants}
+                    className="flex flex-wrap items-center gap-10"
                   >
                     <button
-                      className={`group flex items-center gap-3 rounded-full bg-[#05050A] px-8 py-4 font-bold text-white transition-all hover:scale-105 active:scale-95 shadow-xl ${current.shadow}`}
+                      className={`group relative flex items-center gap-3 overflow-hidden rounded-full bg-slate-950 px-10 py-5 font-bold text-white transition-all hover:scale-105 active:scale-95 shadow-2xl ${current.shadow}`}
                     >
-                      Mulai Sekarang
-                      <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                      <span className="relative z-10">Mulai Sekarang</span>
+                      <FaArrowRight className="relative z-10 group-hover:translate-x-2 transition-transform duration-300" />
+                      <div
+                        className={`absolute inset-0 bg-linear-to-r ${current.color} opacity-0 group-hover:opacity-20 transition-opacity`}
+                      />
                     </button>
 
-                    <div className="flex items-center gap-3 border-l border-gray-200 pl-8">
-                      <div className="flex -space-x-3">
+                    <div className="flex items-center gap-4 border-l-2 border-slate-100 pl-8">
+                      <div className="flex -space-x-4">
                         {[1, 2, 3].map((i) => (
                           <img
                             key={i}
-                            src={`https://i.pravatar.cc/100?u=user${i + index * 3}`}
-                            className="h-10 w-10 rounded-full border-2 border-white shadow-sm"
-                            alt="avatar"
+                            src={`https://i.pravatar.cc/100?u=user${i + index * 5}`}
+                            className="h-12 w-12 rounded-full border-4 border-white shadow-xl"
+                            alt="social-proof"
                           />
                         ))}
                       </div>
                       <div className="flex flex-col">
-                        <span className="text-sm font-bold text-black leading-none">
+                        <span className="text-lg font-black text-slate-900 leading-none">
                           2.4k+
                         </span>
-                        <span className="text-xs text-gray-400">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                           Pesan terkirim
                         </span>
                       </div>
@@ -244,7 +221,8 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="lg:col-span-5">
+          {/* Right Section: HeroAnimations */}
+          <div className="lg:col-span-5 relative">
             <HeroAnimations
               current={current}
               index={index}
@@ -254,6 +232,19 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2"
+      >
+        <span className="text-[10px] font-black tracking-widest uppercase text-slate-400">
+          Scroll
+        </span>
+        <div className="h-12 w-px bg-linear-to-b from-slate-200 to-transparent" />
+      </motion.div>
     </section>
   );
 }

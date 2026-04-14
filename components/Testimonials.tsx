@@ -157,8 +157,8 @@ export default function Testimonials() {
         </Marquee>
 
         {/* Gradient Overlays for smooth edges */}
-        <div className="absolute inset-y-0 left-0 w-40 bg-linear-to-r from-[#FAFAFC] to-transparent z-20 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-40 bg-linear-to-l from-[#FAFAFC] to-transparent z-20 pointer-events-none" />
+        <div className="absolute hidden md:inline inset-y-0 left-0 lg:w-40  bg-linear-to-r from-[#FAFAFC] to-transparent z-20 pointer-events-none" />
+        <div className="absolute hidden md:inline inset-y-0 right-0 lg:w-40  bg-linear-to-l from-[#FAFAFC] to-transparent z-20 pointer-events-none" />
       </div>
     </section>
   );
